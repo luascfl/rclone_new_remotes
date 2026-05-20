@@ -1,0 +1,200 @@
+{
+  "version": 1,
+  "project": "rclone_new_remotes",
+  "productName": "Automa\u00e7\u00e3o pessoal de remotes rclone e suporte ao Obsidian",
+  "owner": "Lucas Camilo Carvalho",
+  "updatedAt": "2026-05-19T21:24:15-03:00",
+  "problemStatement": "O reposit\u00f3rio j\u00e1 possui automa\u00e7\u00e3o para m\u00faltiplos remotes e servi\u00e7os systemd, mas o fluxo ainda precisa de um ciclo operacional seguro para ativar e validar o remote direto \"Google Drive\" sem risco de perda dos demais remotes, credenciais e mounts.",
+  "immediateObjective": "Estruturar o contexto oficial do projeto e preparar um ciclo controlado para ativa\u00e7\u00e3o e valida\u00e7\u00e3o do remote \"Google Drive\" definido em rclone_new_remotes.sh.",
+  "scope": [
+    "Curadoria de contexto oficial em .context/docs e artefatos de opera\u00e7\u00e3o.",
+    "Planejamento de ciclo seguro para ativar, testar e estabilizar o remote \"Google Drive\".",
+    "Prote\u00e7\u00e3o expl\u00edcita de remotes existentes e servi\u00e7os systemd j\u00e1 ativos.",
+    "Defini\u00e7\u00e3o de rollback e checklist de valida\u00e7\u00e3o p\u00f3s-ativa\u00e7\u00e3o."
+  ],
+  "outOfScope": [
+    "Refatora\u00e7\u00e3o ampla de todos os provedores do script.",
+    "Migra\u00e7\u00e3o da infraestrutura para outra stack.",
+    "Altera\u00e7\u00f5es no c\u00f3digo do plugin remotely-save-src neste ciclo inicial."
+  ],
+  "constraints": [
+    "N\u00e3o apagar remotes existentes por padr\u00e3o.",
+    "N\u00e3o interromper permanentemente servi\u00e7os systemd de mounts j\u00e1 funcionais.",
+    "Manter compatibilidade com ambiente Linux do usu\u00e1rio e fluxo rclone/systemctl --user.",
+    "Registrar evid\u00eancias de valida\u00e7\u00e3o para auditoria manual antes de novos passos."
+  ],
+  "successMetrics": [
+    "Contexto oficial m\u00ednimo dispon\u00edvel e naveg\u00e1vel (.context/docs + PRD + README operacional).",
+    "Remote \"Google Drive\" validado com mount funcional e health-check sem degradar outros remotes.",
+    "Zero perda de configura\u00e7\u00e3o existente em ~/.config/rclone/rclone.conf.",
+    "Checklist de rollback execut\u00e1vel em at\u00e9 10 minutos em caso de falha."
+  ],
+  "qualityGates": [
+    "bash -n rclone_new_remotes.sh",
+    "python3 -m py_compile obsidian_profile_portability.py",
+    "test -f .context/docs/README.md",
+    "jq . .context/prd_ralph/prd.json >/dev/null",
+    "git status --porcelain"
+  ],
+  "stories": [
+    {
+      "id": "S1",
+      "title": "Consolidar contexto oficial do projeto para o ciclo Ralph",
+      "status": "done",
+      "priority": "high",
+      "dependsOn": [],
+      "description": "Preencher o contexto oficial m\u00ednimo para o reposit\u00f3rio com foco no fluxo de automa\u00e7\u00e3o rclone, riscos operacionais e pontos de entrada reais, evitando documenta\u00e7\u00e3o gen\u00e9rica vazia.",
+      "acceptanceCriteria": [
+        "Existe vis\u00e3o geral objetiva do projeto em .context/docs com foco em rclone_new_remotes.sh e utilit\u00e1rios Obsidian.",
+        "Estado atual do planejamento (GSD) est\u00e1 registrado com pr\u00f3ximos passos claros para o ciclo seguro.",
+        "A pasta .context/prd_ralph possui README operacional explicando como rodar ralph build com este PRD.",
+        "Toda documenta\u00e7\u00e3o nova evita credenciais em texto claro e referencia caminhos reais do reposit\u00f3rio."
+      ],
+      "tasks": [
+        "Curar .context/docs/project-overview.md com escopo real do reposit\u00f3rio.",
+        "Criar/atualizar .context/docs/planning_gsd/STATE.md com fase atual e objetivo imediato.",
+        "Criar .context/prd_ralph/README.md com instru\u00e7\u00f5es curtas de execu\u00e7\u00e3o Ralph.",
+        "Registrar riscos de opera\u00e7\u00e3o do modo \"nuke\" no contexto."
+      ],
+      "verificationCommands": [
+        "test -f .context/docs/project-overview.md",
+        "test -f .context/docs/planning_gsd/STATE.md",
+        "test -f .context/prd_ralph/README.md"
+      ],
+      "artifacts": [
+        ".context/docs/project-overview.md",
+        ".context/docs/planning_gsd/STATE.md",
+        ".context/prd_ralph/README.md"
+      ],
+      "startedAt": "2026-05-19T21:01:57-03:00",
+      "completedAt": "2026-05-19T21:24:15-03:00",
+      "updatedAt": "2026-05-19T21:24:15-03:00"
+    },
+    {
+      "id": "S2",
+      "title": "Estabelecer baseline e backup antes de ativar Google Drive direto",
+      "status": "open",
+      "priority": "high",
+      "dependsOn": [
+        "S1"
+      ],
+      "description": "Criar um baseline reproduz\u00edvel do estado atual dos remotes e servi\u00e7os systemd para garantir recupera\u00e7\u00e3o total caso qualquer etapa de ativa\u00e7\u00e3o falhe.",
+      "acceptanceCriteria": [
+        "Snapshot versionado de rclone config e lista de remotes foi gerado antes de qualquer mudan\u00e7a funcional.",
+        "Invent\u00e1rio dos servi\u00e7os rclone-*.service e status atual est\u00e1 documentado.",
+        "Existe procedimento de restaura\u00e7\u00e3o expl\u00edcito e test\u00e1vel para config e units cr\u00edticas.",
+        "A estrat\u00e9gia cobre tamb\u00e9m o servi\u00e7o WebDAV agregado (rclone-webdav-todos-remotes.service)."
+      ],
+      "tasks": [
+        "Definir local de backup com timestamp para rclone.conf e units de usu\u00e1rio.",
+        "Gerar invent\u00e1rio de remotes via rclone listremotes e salvar evid\u00eancia.",
+        "Gerar invent\u00e1rio de servi\u00e7os via systemctl --user list-units/list-unit-files.",
+        "Documentar passo a passo de restore r\u00e1pido."
+      ],
+      "verificationCommands": [
+        "rclone listremotes",
+        "systemctl --user list-unit-files 'rclone-*.service'",
+        "test -d .context/docs/ops"
+      ],
+      "artifacts": [
+        ".context/docs/ops/baseline-remotes.md",
+        ".context/docs/ops/baseline-systemd.md",
+        ".context/docs/ops/restore-playbook.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Definir fluxo seguro para ativa\u00e7\u00e3o direcionada do remote Google Drive",
+      "status": "open",
+      "priority": "high",
+      "dependsOn": [
+        "S2"
+      ],
+      "description": "Planejar e implementar um fluxo de execu\u00e7\u00e3o direcionado para o remote \"Google Drive\" que evite dele\u00e7\u00e3o global e minimize impacto nos demais remotes e mounts.",
+      "acceptanceCriteria": [
+        "Fluxo n\u00e3o executa dele\u00e7\u00e3o em massa por padr\u00e3o e deixa o modo destrutivo explicitamente opt-in.",
+        "\u00c9 poss\u00edvel rodar ativa\u00e7\u00e3o apenas do remote Google Drive e seu servi\u00e7o correspondente.",
+        "Falhas de autentica\u00e7\u00e3o/reconnect n\u00e3o removem remotes saud\u00e1veis automaticamente.",
+        "Comportamento esperado fica documentado em runbook operacional."
+      ],
+      "tasks": [
+        "Desenhar modo seguro (ex.: flags --target, --no-nuke, --validate-only).",
+        "Isolar etapa de autentica\u00e7\u00e3o do Google Drive do loop de todos os remotes.",
+        "Definir prote\u00e7\u00e3o contra dele\u00e7\u00e3o autom\u00e1tica em falhas transit\u00f3rias.",
+        "Atualizar documenta\u00e7\u00e3o com exemplos de execu\u00e7\u00e3o segura."
+      ],
+      "verificationCommands": [
+        "bash -n rclone_new_remotes.sh",
+        "grep -n 'Apagar e recriar tudo' rclone_new_remotes.sh",
+        "grep -n 'Google Drive|drive' rclone_new_remotes.sh"
+      ],
+      "artifacts": [
+        "rclone_new_remotes.sh",
+        ".context/docs/ops/google-drive-safe-activation.md"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Validar Google Drive direto sem regress\u00e3o nos demais remotes e systemd",
+      "status": "open",
+      "priority": "high",
+      "dependsOn": [
+        "S3"
+      ],
+      "description": "Executar valida\u00e7\u00e3o funcional e operacional do remote \"Google Drive\" direto, incluindo mount, token health e estabilidade b\u00e1sica, sem degrada\u00e7\u00e3o dos outros servi\u00e7os ativos.",
+      "acceptanceCriteria": [
+        "Remote \"Google Drive\" responde a checagens de acesso (about/lsd) ap\u00f3s ativa\u00e7\u00e3o.",
+        "Servi\u00e7o systemd do Google Drive sobe e permanece ativo sem crash loop.",
+        "Servi\u00e7os de outros remotes cr\u00edticos continuam ativos ou s\u00e3o recuperados automaticamente.",
+        "Resultado da valida\u00e7\u00e3o fica registrado com evid\u00eancias objetivas e timestamp."
+      ],
+      "tasks": [
+        "Executar sequ\u00eancia de valida\u00e7\u00e3o do remote Google Drive com comandos seguros.",
+        "Checar status dos servi\u00e7os systemd antes e depois da ativa\u00e7\u00e3o.",
+        "Registrar logs de falha/sucesso e a\u00e7\u00e3o corretiva aplicada.",
+        "Atualizar baseline p\u00f3s-valida\u00e7\u00e3o para compara\u00e7\u00e3o."
+      ],
+      "verificationCommands": [
+        "rclone about 'Google Drive:'",
+        "systemctl --user status 'rclone-google-drive.service' --no-pager",
+        "systemctl --user --failed"
+      ],
+      "artifacts": [
+        ".context/docs/ops/google-drive-validation-report.md",
+        ".context/docs/ops/systemd-health-after-validation.md"
+      ]
+    },
+    {
+      "id": "S5",
+      "title": "Fechar ciclo com rollback validado e checklist de opera\u00e7\u00e3o cont\u00ednua",
+      "status": "open",
+      "priority": "medium",
+      "dependsOn": [
+        "S4"
+      ],
+      "description": "Concluir o ciclo com documenta\u00e7\u00e3o de rollback realmente execut\u00e1vel e checklist recorrente para manuten\u00e7\u00e3o segura dos remotes rclone e suporte ao Obsidian.",
+      "acceptanceCriteria": [
+        "Rollback de configura\u00e7\u00e3o e servi\u00e7os foi ensaiado ou validado por procedimento documentado.",
+        "Existe checklist semanal/mensal para sa\u00fade de remotes, tokens e unidades systemd.",
+        "Crit\u00e9rios de entrada para pr\u00f3ximos ciclos (novos remotes/utilit\u00e1rios) est\u00e3o definidos.",
+        "Contexto oficial foi atualizado com links cruzados para artefatos de opera\u00e7\u00e3o."
+      ],
+      "tasks": [
+        "Consolidar playbook final de rollback.",
+        "Criar checklist operacional cont\u00ednuo com comandos de diagn\u00f3stico.",
+        "Registrar crit\u00e9rios de pronto para expans\u00e3o futura do reposit\u00f3rio.",
+        "Atualizar \u00edndice de docs com os novos artefatos."
+      ],
+      "verificationCommands": [
+        "test -f .context/docs/ops/restore-playbook.md",
+        "test -f .context/docs/ops/operations-checklist.md",
+        "grep -n 'ops' .context/docs/README.md"
+      ],
+      "artifacts": [
+        ".context/docs/ops/restore-playbook.md",
+        ".context/docs/ops/operations-checklist.md",
+        ".context/docs/README.md"
+      ]
+    }
+  ]
+}

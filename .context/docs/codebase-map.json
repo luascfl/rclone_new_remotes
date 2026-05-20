@@ -1,0 +1,1203 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-05-19T23:40:49.118Z",
+  "stack": {
+    "primaryLanguage": "typescript",
+    "languages": [
+      "python",
+      "javascript",
+      "typescript"
+    ],
+    "frameworks": [],
+    "buildTools": [],
+    "testFrameworks": [],
+    "packageManager": null,
+    "isMonorepo": false,
+    "hasDocker": false,
+    "hasCI": false
+  },
+  "structure": {
+    "totalFiles": 0,
+    "rootPath": ".",
+    "topDirectories": [],
+    "languageDistribution": []
+  },
+  "architecture": {
+    "layers": [
+      {
+        "name": "Repositories",
+        "description": "Data access and persistence",
+        "directories": [
+          "remotely-save-src/tests",
+          "remotely-save-src/src"
+        ],
+        "symbolCount": 2,
+        "dependsOn": [
+          "Config"
+        ]
+      },
+      {
+        "name": "Config",
+        "description": "Configuration and constants",
+        "directories": [
+          "remotely-save-src/tests",
+          "remotely-save-src/src",
+          "remotely-save-src/pro/src",
+          "remotely-save-src"
+        ],
+        "symbolCount": 17,
+        "dependsOn": [
+          "Controllers"
+        ]
+      },
+      {
+        "name": "Controllers",
+        "description": "Request handling and routing",
+        "directories": [
+          "remotely-save-src/pro/src"
+        ],
+        "symbolCount": 11,
+        "dependsOn": []
+      }
+    ],
+    "patterns": [
+      {
+        "name": "Observer",
+        "confidence": 0.75,
+        "description": "Defines a subscription mechanism to notify multiple objects",
+        "occurrences": 1
+      }
+    ],
+    "entryPoints": [
+      "remotely-save-src/src/main.ts",
+      "remotely-save-src/src/langs/index.ts",
+      "remotely-save-src/pro/src/langs/index.ts"
+    ],
+    "mainEntryPoints": [],
+    "moduleExports": [
+      "remotely-save-src/src/main.ts",
+      "remotely-save-src/src/langs/index.ts",
+      "remotely-save-src/pro/src/langs/index.ts"
+    ]
+  },
+  "symbols": {
+    "classes": [
+      {
+        "name": "CipherRclone",
+        "kind": "class",
+        "file": "remotely-save-src/src/encryptRClone.ts",
+        "line": 18,
+        "exported": true
+      },
+      {
+        "name": "FakeFsAzureBlobStorage",
+        "kind": "class",
+        "file": "remotely-save-src/pro/src/fsAzureBlobStorage.ts",
+        "line": 101,
+        "exported": true
+      },
+      {
+        "name": "FakeFsBox",
+        "kind": "class",
+        "file": "remotely-save-src/pro/src/fsBox.ts",
+        "line": 292,
+        "exported": true
+      },
+      {
+        "name": "FakeFsDropbox",
+        "kind": "class",
+        "file": "remotely-save-src/src/fsDropbox.ts",
+        "line": 356,
+        "exported": true
+      },
+      {
+        "name": "FakeFsEncrypt",
+        "kind": "class",
+        "file": "remotely-save-src/src/fsEncrypt.ts",
+        "line": 73,
+        "exported": true
+      },
+      {
+        "name": "FakeFsGoogleDrive",
+        "kind": "class",
+        "file": "remotely-save-src/pro/src/fsGoogleDrive.ts",
+        "line": 170,
+        "exported": true
+      },
+      {
+        "name": "FakeFsKoofr",
+        "kind": "class",
+        "file": "remotely-save-src/pro/src/fsKoofr.ts",
+        "line": 301,
+        "exported": true
+      },
+      {
+        "name": "FakeFsLocal",
+        "kind": "class",
+        "file": "remotely-save-src/src/fsLocal.ts",
+        "line": 9,
+        "exported": true
+      },
+      {
+        "name": "FakeFsMock",
+        "kind": "class",
+        "file": "remotely-save-src/src/fsMock.ts",
+        "line": 4,
+        "exported": true
+      },
+      {
+        "name": "FakeFsOnedriveFull",
+        "kind": "class",
+        "file": "remotely-save-src/pro/src/fsOnedriveFull.ts",
+        "line": 385,
+        "exported": true
+      },
+      {
+        "name": "FakeFsPCloud",
+        "kind": "class",
+        "file": "remotely-save-src/pro/src/fsPCloud.ts",
+        "line": 294,
+        "exported": true
+      },
+      {
+        "name": "FakeFsS3",
+        "kind": "class",
+        "file": "remotely-save-src/src/fsS3.ts",
+        "line": 402,
+        "exported": true
+      },
+      {
+        "name": "FakeFsWebdav",
+        "kind": "class",
+        "file": "remotely-save-src/src/fsWebdav.ts",
+        "line": 283,
+        "exported": true
+      },
+      {
+        "name": "FakeFsWebdis",
+        "kind": "class",
+        "file": "remotely-save-src/src/fsWebdis.ts",
+        "line": 54,
+        "exported": true
+      },
+      {
+        "name": "FakeFsYandexDisk",
+        "kind": "class",
+        "file": "remotely-save-src/pro/src/fsYandexDisk.ts",
+        "line": 242,
+        "exported": true
+      },
+      {
+        "name": "I18n",
+        "kind": "class",
+        "file": "remotely-save-src/src/i18n.ts",
+        "line": 14,
+        "exported": true
+      },
+      {
+        "name": "OnedriveFullAuthModal",
+        "kind": "class",
+        "file": "remotely-save-src/pro/src/settingsOnedriveFull.ts",
+        "line": 14,
+        "exported": true
+      },
+      {
+        "name": "OnedriveFullRevokeAuthModal",
+        "kind": "class",
+        "file": "remotely-save-src/pro/src/settingsOnedriveFull.ts",
+        "line": 88,
+        "exported": true
+      },
+      {
+        "name": "ProAuthModal",
+        "kind": "class",
+        "file": "remotely-save-src/pro/src/settingsPro.ts",
+        "line": 21,
+        "exported": true
+      },
+      {
+        "name": "Profiler",
+        "kind": "class",
+        "file": "remotely-save-src/src/profiler.ts",
+        "line": 18,
+        "exported": true
+      },
+      {
+        "name": "ProRevokeAuthModal",
+        "kind": "class",
+        "file": "remotely-save-src/pro/src/settingsPro.ts",
+        "line": 171,
+        "exported": true
+      },
+      {
+        "name": "SyncAlgoV3Modal",
+        "kind": "class",
+        "file": "remotely-save-src/src/syncAlgoV3Notice.ts",
+        "line": 7,
+        "exported": true
+      },
+      {
+        "name": "YandexApi",
+        "kind": "class",
+        "file": "remotely-save-src/pro/src/yandexApi.ts",
+        "line": 87,
+        "exported": true
+      },
+      {
+        "name": "BoxAuthModal",
+        "kind": "class",
+        "file": "remotely-save-src/pro/src/settingsBox.ts",
+        "line": 14,
+        "exported": false
+      },
+      {
+        "name": "BoxRevokeAuthModal",
+        "kind": "class",
+        "file": "remotely-save-src/pro/src/settingsBox.ts",
+        "line": 129,
+        "exported": false
+      },
+      {
+        "name": "ChangeAzureBlobStorageRemotePrefixModal",
+        "kind": "class",
+        "file": "remotely-save-src/pro/src/settingsAzureBlobStorage.ts",
+        "line": 13,
+        "exported": false
+      },
+      {
+        "name": "ClearDupFilesModal",
+        "kind": "class",
+        "file": "remotely-save-src/pro/src/settingsClearDupFiles.ts",
+        "line": 8,
+        "exported": false
+      },
+      {
+        "name": "GoogleDriveAuthModal",
+        "kind": "class",
+        "file": "remotely-save-src/pro/src/settingsGoogleDrive.ts",
+        "line": 13,
+        "exported": false
+      },
+      {
+        "name": "GoogleDriveRevokeAuthModal",
+        "kind": "class",
+        "file": "remotely-save-src/pro/src/settingsGoogleDrive.ts",
+        "line": 132,
+        "exported": false
+      },
+      {
+        "name": "KoofrAuthModal",
+        "kind": "class",
+        "file": "remotely-save-src/pro/src/settingsKoofr.ts",
+        "line": 14,
+        "exported": false
+      }
+    ],
+    "interfaces": [
+      {
+        "name": "AccessCodeResponseFailedType",
+        "kind": "interface",
+        "file": "remotely-save-src/pro/src/fsOnedriveFull.ts",
+        "line": 95,
+        "exported": true
+      },
+      {
+        "name": "AccessCodeResponseSuccessfulType",
+        "kind": "interface",
+        "file": "remotely-save-src/pro/src/fsOnedriveFull.ts",
+        "line": 86,
+        "exported": true
+      },
+      {
+        "name": "AuthAllowFirstRes",
+        "kind": "interface",
+        "file": "remotely-save-src/pro/src/fsPCloud.ts",
+        "line": 26,
+        "exported": true
+      },
+      {
+        "name": "AzureBlobStorageConfig",
+        "kind": "interface",
+        "file": "remotely-save-src/pro/src/baseTypesPro.ts",
+        "line": 163,
+        "exported": true
+      },
+      {
+        "name": "BoxConfig",
+        "kind": "interface",
+        "file": "remotely-save-src/pro/src/baseTypesPro.ts",
+        "line": 87,
+        "exported": true
+      },
+      {
+        "name": "DeletionOnRemote",
+        "kind": "interface",
+        "file": "remotely-save-src/src/metadataOnRemote.ts",
+        "line": 16,
+        "exported": true
+      },
+      {
+        "name": "Disk",
+        "kind": "interface",
+        "file": "remotely-save-src/pro/src/yandexApi.ts",
+        "line": 62,
+        "exported": true
+      },
+      {
+        "name": "DropboxConfig",
+        "kind": "interface",
+        "file": "remotely-save-src/src/baseTypes.ts",
+        "line": 71,
+        "exported": true
+      },
+      {
+        "name": "DropboxSuccessAuthRes",
+        "kind": "interface",
+        "file": "remotely-save-src/src/fsDropbox.ts",
+        "line": 264,
+        "exported": true
+      },
+      {
+        "name": "Entity",
+        "kind": "interface",
+        "file": "remotely-save-src/src/baseTypes.ts",
+        "line": 269,
+        "exported": true
+      },
+      {
+        "name": "ErrorResponse",
+        "kind": "interface",
+        "file": "remotely-save-src/pro/src/yandexApi.ts",
+        "line": 76,
+        "exported": true
+      },
+      {
+        "name": "FeatureInfo",
+        "kind": "interface",
+        "file": "remotely-save-src/pro/src/baseTypesPro.ts",
+        "line": 38,
+        "exported": true
+      },
+      {
+        "name": "FileOrFolderMixedState",
+        "kind": "interface",
+        "file": "remotely-save-src/src/baseTypes.ts",
+        "line": 316,
+        "exported": true
+      },
+      {
+        "name": "FilesResourceList",
+        "kind": "interface",
+        "file": "remotely-save-src/pro/src/yandexApi.ts",
+        "line": 44,
+        "exported": true
+      },
+      {
+        "name": "GoogleDriveConfig",
+        "kind": "interface",
+        "file": "remotely-save-src/pro/src/baseTypesPro.ts",
+        "line": 64,
+        "exported": true
+      },
+      {
+        "name": "InternalDBs",
+        "kind": "interface",
+        "file": "remotely-save-src/src/localdb.ts",
+        "line": 58,
+        "exported": true
+      },
+      {
+        "name": "KoofrConfig",
+        "kind": "interface",
+        "file": "remotely-save-src/pro/src/baseTypesPro.ts",
+        "line": 146,
+        "exported": true
+      },
+      {
+        "name": "LastUploadedResourceList",
+        "kind": "interface",
+        "file": "remotely-save-src/pro/src/yandexApi.ts",
+        "line": 50,
+        "exported": true
+      },
+      {
+        "name": "Link",
+        "kind": "interface",
+        "file": "remotely-save-src/pro/src/yandexApi.ts",
+        "line": 6,
+        "exported": true
+      },
+      {
+        "name": "MetadataOnRemote",
+        "kind": "interface",
+        "file": "remotely-save-src/src/metadataOnRemote.ts",
+        "line": 21,
+        "exported": true
+      },
+      {
+        "name": "MixedEntity",
+        "kind": "interface",
+        "file": "remotely-save-src/src/baseTypes.ts",
+        "line": 298,
+        "exported": true
+      },
+      {
+        "name": "OnedriveConfig",
+        "kind": "interface",
+        "file": "remotely-save-src/src/baseTypes.ts",
+        "line": 109,
+        "exported": true
+      },
+      {
+        "name": "OnedriveFullConfig",
+        "kind": "interface",
+        "file": "remotely-save-src/pro/src/baseTypesPro.ts",
+        "line": 178,
+        "exported": true
+      },
+      {
+        "name": "Operation",
+        "kind": "interface",
+        "file": "remotely-save-src/pro/src/yandexApi.ts",
+        "line": 72,
+        "exported": true
+      },
+      {
+        "name": "PasswordCheckType",
+        "kind": "interface",
+        "file": "remotely-save-src/src/fsEncrypt.ts",
+        "line": 51,
+        "exported": true
+      },
+      {
+        "name": "PCloudConfig",
+        "kind": "interface",
+        "file": "remotely-save-src/pro/src/baseTypesPro.ts",
+        "line": 105,
+        "exported": true
+      },
+      {
+        "name": "ProcessQrCodeResultType",
+        "kind": "interface",
+        "file": "remotely-save-src/src/importExport.ts",
+        "line": 77,
+        "exported": true
+      },
+      {
+        "name": "ProConfig",
+        "kind": "interface",
+        "file": "remotely-save-src/pro/src/baseTypesPro.ts",
+        "line": 44,
+        "exported": true
+      },
+      {
+        "name": "ProfilerConfig",
+        "kind": "interface",
+        "file": "remotely-save-src/src/baseTypes.ts",
+        "line": 142,
+        "exported": true
+      },
+      {
+        "name": "PublicResourcesList",
+        "kind": "interface",
+        "file": "remotely-save-src/pro/src/yandexApi.ts",
+        "line": 55,
+        "exported": true
+      }
+    ],
+    "functions": [
+      {
+        "name": "apply_bundle",
+        "kind": "function",
+        "file": "obsidian_profile_portability.py",
+        "line": 346,
+        "exported": true
+      },
+      {
+        "name": "backup_path",
+        "kind": "function",
+        "file": "obsidian_profile_portability.py",
+        "line": 135,
+        "exported": true
+      },
+      {
+        "name": "build_parser",
+        "kind": "function",
+        "file": "obsidian_profile_portability.py",
+        "line": 428,
+        "exported": true
+      },
+      {
+        "name": "codeVerifier2CodeChallenge",
+        "kind": "function",
+        "file": "remotely-save-src/pro/src/oauth2.ts",
+        "line": 10,
+        "exported": true
+      },
+      {
+        "name": "copy_file",
+        "kind": "function",
+        "file": "obsidian_profile_portability.py",
+        "line": 156,
+        "exported": true
+      },
+      {
+        "name": "copy_tree",
+        "kind": "function",
+        "file": "obsidian_profile_portability.py",
+        "line": 146,
+        "exported": true
+      },
+      {
+        "name": "copyFile",
+        "kind": "function",
+        "file": "remotely-save-src/src/copyLogic.ts",
+        "line": 15,
+        "exported": true
+      },
+      {
+        "name": "copyFileOrFolder",
+        "kind": "function",
+        "file": "remotely-save-src/src/copyLogic.ts",
+        "line": 50,
+        "exported": true
+      },
+      {
+        "name": "copyFolder",
+        "kind": "function",
+        "file": "remotely-save-src/src/copyLogic.ts",
+        "line": 3,
+        "exported": true
+      },
+      {
+        "name": "default_windows_app_dir",
+        "kind": "function",
+        "file": "obsidian_profile_portability.py",
+        "line": 73,
+        "exported": true
+      },
+      {
+        "name": "export_bundle",
+        "kind": "function",
+        "file": "obsidian_profile_portability.py",
+        "line": 279,
+        "exported": true
+      },
+      {
+        "name": "fail",
+        "kind": "function",
+        "file": "obsidian_profile_portability.py",
+        "line": 42,
+        "exported": true
+      },
+      {
+        "name": "getAuthUrlAndVerifier",
+        "kind": "function",
+        "file": "remotely-save-src/pro/src/fsOnedriveFull.ts",
+        "line": 47,
+        "exported": true
+      },
+      {
+        "name": "getClient",
+        "kind": "function",
+        "file": "remotely-save-src/src/fsGetter.ts",
+        "line": 19,
+        "exported": true
+      },
+      {
+        "name": "getFileRenameForDup",
+        "kind": "function",
+        "file": "remotely-save-src/pro/src/conflictLogic.ts",
+        "line": 179,
+        "exported": true
+      },
+      {
+        "name": "inspect_obsidian_config",
+        "kind": "function",
+        "file": "obsidian_profile_portability.py",
+        "line": 166,
+        "exported": true
+      },
+      {
+        "name": "is_windows_noop",
+        "kind": "function",
+        "file": "obsidian_profile_portability.py",
+        "line": 47,
+        "exported": true
+      },
+      {
+        "name": "isMergable",
+        "kind": "function",
+        "file": "remotely-save-src/pro/src/conflictLogic.ts",
+        "line": 22,
+        "exported": true
+      },
+      {
+        "name": "log",
+        "kind": "function",
+        "file": "obsidian_profile_portability.py",
+        "line": 38,
+        "exported": true
+      },
+      {
+        "name": "main",
+        "kind": "function",
+        "file": "obsidian_profile_portability.py",
+        "line": 466,
+        "exported": true
+      },
+      {
+        "name": "mergeFile",
+        "kind": "function",
+        "file": "remotely-save-src/pro/src/conflictLogic.ts",
+        "line": 112,
+        "exported": true
+      },
+      {
+        "name": "now_ts",
+        "kind": "function",
+        "file": "obsidian_profile_portability.py",
+        "line": 34,
+        "exported": true
+      },
+      {
+        "name": "parse_map_entries",
+        "kind": "function",
+        "file": "obsidian_profile_portability.py",
+        "line": 51,
+        "exported": true
+      },
+      {
+        "name": "print_report",
+        "kind": "function",
+        "file": "obsidian_profile_portability.py",
+        "line": 239,
+        "exported": true
+      },
+      {
+        "name": "read_json",
+        "kind": "function",
+        "file": "obsidian_profile_portability.py",
+        "line": 117,
+        "exported": true
+      },
+      {
+        "name": "replace_prefix",
+        "kind": "function",
+        "file": "obsidian_profile_portability.py",
+        "line": 65,
+        "exported": true
+      },
+      {
+        "name": "resolve_app_dir",
+        "kind": "function",
+        "file": "obsidian_profile_portability.py",
+        "line": 86,
+        "exported": true
+      },
+      {
+        "name": "resolve_target_vault_path",
+        "kind": "function",
+        "file": "obsidian_profile_portability.py",
+        "line": 335,
+        "exported": true
+      },
+      {
+        "name": "threeWayMerge",
+        "kind": "function",
+        "file": "remotely-save-src/pro/src/conflictLogic.ts",
+        "line": 108,
+        "exported": true
+      },
+      {
+        "name": "tryDuplicateFile",
+        "kind": "function",
+        "file": "remotely-save-src/pro/src/conflictLogic.ts",
+        "line": 343,
+        "exported": true
+      }
+    ],
+    "types": [
+      {
+        "name": "CipherMethodType",
+        "kind": "type",
+        "file": "remotely-save-src/src/baseTypes.ts",
+        "line": 138,
+        "exported": true
+      },
+      {
+        "name": "ConflictActionType",
+        "kind": "type",
+        "file": "remotely-save-src/src/baseTypes.ts",
+        "line": 233,
+        "exported": true
+      },
+      {
+        "name": "DecisionTypeForMixedEntity",
+        "kind": "type",
+        "file": "remotely-save-src/src/baseTypes.ts",
+        "line": 238,
+        "exported": true
+      },
+      {
+        "name": "EmptyFolderCleanType",
+        "kind": "type",
+        "file": "remotely-save-src/src/baseTypes.ts",
+        "line": 231,
+        "exported": true
+      },
+      {
+        "name": "LangType",
+        "kind": "type",
+        "file": "remotely-save-src/src/i18n.ts",
+        "line": 10,
+        "exported": true
+      },
+      {
+        "name": "LangTypeAndAuto",
+        "kind": "type",
+        "file": "remotely-save-src/src/i18n.ts",
+        "line": 11,
+        "exported": true
+      },
+      {
+        "name": "LocalForage",
+        "kind": "type",
+        "file": "remotely-save-src/src/localdb.ts",
+        "line": 6,
+        "exported": true
+      },
+      {
+        "name": "PRO_FEATURE_TYPE",
+        "kind": "type",
+        "file": "remotely-save-src/pro/src/baseTypesPro.ts",
+        "line": 28,
+        "exported": true
+      },
+      {
+        "name": "QRExportType",
+        "kind": "type",
+        "file": "remotely-save-src/src/baseTypes.ts",
+        "line": 140,
+        "exported": true
+      },
+      {
+        "name": "SUPPORTED_SERVICES_TYPE",
+        "kind": "type",
+        "file": "remotely-save-src/src/baseTypes.ts",
+        "line": 30,
+        "exported": true
+      },
+      {
+        "name": "SUPPORTED_SERVICES_TYPE_WITH_REMOTE_BASE_DIR",
+        "kind": "type",
+        "file": "remotely-save-src/src/baseTypes.ts",
+        "line": 44,
+        "exported": true
+      },
+      {
+        "name": "SyncDirectionType",
+        "kind": "type",
+        "file": "remotely-save-src/src/baseTypes.ts",
+        "line": 131,
+        "exported": true
+      },
+      {
+        "name": "SyncTriggerSourceType",
+        "kind": "type",
+        "file": "remotely-save-src/src/baseTypes.ts",
+        "line": 348,
+        "exported": true
+      },
+      {
+        "name": "TransItemType",
+        "kind": "type",
+        "file": "remotely-save-src/src/i18n.ts",
+        "line": 12,
+        "exported": true
+      },
+      {
+        "name": "WebdavAuthType",
+        "kind": "type",
+        "file": "remotely-save-src/src/baseTypes.ts",
+        "line": 83,
+        "exported": true
+      },
+      {
+        "name": "WebdavDepthType",
+        "kind": "type",
+        "file": "remotely-save-src/src/baseTypes.ts",
+        "line": 84,
+        "exported": true
+      },
+      {
+        "name": "FilesFile",
+        "kind": "type",
+        "file": "remotely-save-src/pro/src/fsKoofr.ts",
+        "line": 17,
+        "exported": false
+      },
+      {
+        "name": "FilesListRecursiveItem",
+        "kind": "type",
+        "file": "remotely-save-src/pro/src/fsKoofr.ts",
+        "line": 16,
+        "exported": false
+      },
+      {
+        "name": "SortType",
+        "kind": "type",
+        "file": "remotely-save-src/pro/src/yandexApi.ts",
+        "line": 32,
+        "exported": false
+      }
+    ],
+    "enums": []
+  },
+  "publicAPI": [
+    {
+      "name": "AccessCodeResponseFailedType",
+      "kind": "interface",
+      "file": "remotely-save-src/pro/src/fsOnedriveFull.ts",
+      "line": 95,
+      "exported": true
+    },
+    {
+      "name": "AccessCodeResponseSuccessfulType",
+      "kind": "interface",
+      "file": "remotely-save-src/pro/src/fsOnedriveFull.ts",
+      "line": 86,
+      "exported": true
+    },
+    {
+      "name": "apply_bundle",
+      "kind": "function",
+      "file": "obsidian_profile_portability.py",
+      "line": 346,
+      "exported": true
+    },
+    {
+      "name": "AuthAllowFirstRes",
+      "kind": "interface",
+      "file": "remotely-save-src/pro/src/fsPCloud.ts",
+      "line": 26,
+      "exported": true
+    },
+    {
+      "name": "AzureBlobStorageConfig",
+      "kind": "interface",
+      "file": "remotely-save-src/pro/src/baseTypesPro.ts",
+      "line": 163,
+      "exported": true
+    },
+    {
+      "name": "backup_path",
+      "kind": "function",
+      "file": "obsidian_profile_portability.py",
+      "line": 135,
+      "exported": true
+    },
+    {
+      "name": "BoxConfig",
+      "kind": "interface",
+      "file": "remotely-save-src/pro/src/baseTypesPro.ts",
+      "line": 87,
+      "exported": true
+    },
+    {
+      "name": "build_parser",
+      "kind": "function",
+      "file": "obsidian_profile_portability.py",
+      "line": 428,
+      "exported": true
+    },
+    {
+      "name": "CipherMethodType",
+      "kind": "type",
+      "file": "remotely-save-src/src/baseTypes.ts",
+      "line": 138,
+      "exported": true
+    },
+    {
+      "name": "CipherRclone",
+      "kind": "class",
+      "file": "remotely-save-src/src/encryptRClone.ts",
+      "line": 18,
+      "exported": true
+    },
+    {
+      "name": "codeVerifier2CodeChallenge",
+      "kind": "function",
+      "file": "remotely-save-src/pro/src/oauth2.ts",
+      "line": 10,
+      "exported": true
+    },
+    {
+      "name": "ConflictActionType",
+      "kind": "type",
+      "file": "remotely-save-src/src/baseTypes.ts",
+      "line": 233,
+      "exported": true
+    },
+    {
+      "name": "copy_file",
+      "kind": "function",
+      "file": "obsidian_profile_portability.py",
+      "line": 156,
+      "exported": true
+    },
+    {
+      "name": "copy_tree",
+      "kind": "function",
+      "file": "obsidian_profile_portability.py",
+      "line": 146,
+      "exported": true
+    },
+    {
+      "name": "copyFile",
+      "kind": "function",
+      "file": "remotely-save-src/src/copyLogic.ts",
+      "line": 15,
+      "exported": true
+    },
+    {
+      "name": "copyFileOrFolder",
+      "kind": "function",
+      "file": "remotely-save-src/src/copyLogic.ts",
+      "line": 50,
+      "exported": true
+    },
+    {
+      "name": "copyFolder",
+      "kind": "function",
+      "file": "remotely-save-src/src/copyLogic.ts",
+      "line": 3,
+      "exported": true
+    },
+    {
+      "name": "DecisionTypeForMixedEntity",
+      "kind": "type",
+      "file": "remotely-save-src/src/baseTypes.ts",
+      "line": 238,
+      "exported": true
+    },
+    {
+      "name": "default_windows_app_dir",
+      "kind": "function",
+      "file": "obsidian_profile_portability.py",
+      "line": 73,
+      "exported": true
+    },
+    {
+      "name": "DeletionOnRemote",
+      "kind": "interface",
+      "file": "remotely-save-src/src/metadataOnRemote.ts",
+      "line": 16,
+      "exported": true
+    },
+    {
+      "name": "Disk",
+      "kind": "interface",
+      "file": "remotely-save-src/pro/src/yandexApi.ts",
+      "line": 62,
+      "exported": true
+    },
+    {
+      "name": "DropboxConfig",
+      "kind": "interface",
+      "file": "remotely-save-src/src/baseTypes.ts",
+      "line": 71,
+      "exported": true
+    },
+    {
+      "name": "DropboxSuccessAuthRes",
+      "kind": "interface",
+      "file": "remotely-save-src/src/fsDropbox.ts",
+      "line": 264,
+      "exported": true
+    },
+    {
+      "name": "EmptyFolderCleanType",
+      "kind": "type",
+      "file": "remotely-save-src/src/baseTypes.ts",
+      "line": 231,
+      "exported": true
+    },
+    {
+      "name": "Entity",
+      "kind": "interface",
+      "file": "remotely-save-src/src/baseTypes.ts",
+      "line": 269,
+      "exported": true
+    },
+    {
+      "name": "ErrorResponse",
+      "kind": "interface",
+      "file": "remotely-save-src/pro/src/yandexApi.ts",
+      "line": 76,
+      "exported": true
+    },
+    {
+      "name": "export_bundle",
+      "kind": "function",
+      "file": "obsidian_profile_portability.py",
+      "line": 279,
+      "exported": true
+    },
+    {
+      "name": "fail",
+      "kind": "function",
+      "file": "obsidian_profile_portability.py",
+      "line": 42,
+      "exported": true
+    },
+    {
+      "name": "FakeFsAzureBlobStorage",
+      "kind": "class",
+      "file": "remotely-save-src/pro/src/fsAzureBlobStorage.ts",
+      "line": 101,
+      "exported": true
+    },
+    {
+      "name": "FakeFsBox",
+      "kind": "class",
+      "file": "remotely-save-src/pro/src/fsBox.ts",
+      "line": 292,
+      "exported": true
+    }
+  ],
+  "dependencies": {
+    "mostImported": [
+      {
+        "file": "remotely-save-src/src/misc.ts",
+        "importedBy": 31,
+        "description": "Source code root"
+      },
+      {
+        "file": "remotely-save-src/src/baseTypes.ts",
+        "importedBy": 27,
+        "description": "Source code root"
+      },
+      {
+        "file": "remotely-save-src/src/fsAll.ts",
+        "importedBy": 17,
+        "description": "Source code root"
+      },
+      {
+        "file": "remotely-save-src/src/i18n.ts",
+        "importedBy": 11,
+        "description": "Source code root"
+      },
+      {
+        "file": "remotely-save-src/pro/src/baseTypesPro.ts",
+        "importedBy": 11,
+        "description": "Source code root"
+      },
+      {
+        "file": "remotely-save-src/src/main.ts",
+        "importedBy": 10,
+        "description": "Source code root"
+      },
+      {
+        "file": "remotely-save-src/src/fsGetter.ts",
+        "importedBy": 7,
+        "description": "Source code root"
+      },
+      {
+        "file": "remotely-save-src/src/settings.ts",
+        "importedBy": 7,
+        "description": "Source code root"
+      },
+      {
+        "file": "remotely-save-src/src/localdb.ts",
+        "importedBy": 4,
+        "description": "Source code root"
+      },
+      {
+        "file": "remotely-save-src/pro/src/sync.ts",
+        "importedBy": 3,
+        "description": "Source code root"
+      },
+      {
+        "file": "remotely-save-src/pro/src/fsOnedriveFull.ts",
+        "importedBy": 3,
+        "description": "Source code root"
+      },
+      {
+        "file": "remotely-save-src/src/baseTypesObs.ts",
+        "importedBy": 3,
+        "description": "Source code root"
+      },
+      {
+        "file": "remotely-save-src/src/fsWebdis.ts",
+        "importedBy": 2,
+        "description": "Source code root"
+      },
+      {
+        "file": "remotely-save-src/src/encryptOpenSSL.ts",
+        "importedBy": 2,
+        "description": "Source code root"
+      },
+      {
+        "file": "remotely-save-src/src/fsOnedrive.ts",
+        "importedBy": 2,
+        "description": "Source code root"
+      },
+      {
+        "file": "remotely-save-src/pro/src/fsAzureBlobStorage.ts",
+        "importedBy": 2,
+        "description": "Source code root"
+      },
+      {
+        "file": "remotely-save-src/pro/src/fsBox.ts",
+        "importedBy": 2,
+        "description": "Source code root"
+      },
+      {
+        "file": "remotely-save-src/pro/src/fsGoogleDrive.ts",
+        "importedBy": 2,
+        "description": "Source code root"
+      },
+      {
+        "file": "remotely-save-src/pro/src/fsKoofr.ts",
+        "importedBy": 2,
+        "description": "Source code root"
+      },
+      {
+        "file": "remotely-save-src/pro/src/fsPCloud.ts",
+        "importedBy": 2,
+        "description": "Source code root"
+      }
+    ]
+  },
+  "stats": {
+    "totalSymbols": 172,
+    "exportedSymbols": 113,
+    "analysisTimeMs": 2195
+  },
+  "keyFiles": [
+    {
+      "path": "remotely-save-src/pro/src/langs/index.ts",
+      "description": "Module exports",
+      "category": "entrypoint"
+    },
+    {
+      "path": "remotely-save-src/src/langs/index.ts",
+      "description": "Module exports",
+      "category": "entrypoint"
+    },
+    {
+      "path": "remotely-save-src/src/main.ts",
+      "description": "Source code root",
+      "category": "entrypoint"
+    }
+  ],
+  "navigation": {
+    "tests": "src/**/*.test.ts",
+    "config": [],
+    "types": [],
+    "mainLogic": [
+      "src"
+    ]
+  }
+}
