@@ -1,11 +1,11 @@
 # GSD state
 
-- Updated: 2026-05-19
-- Phase: planning
+- Updated: 2026-05-20
+- Phase: validation
 - Initiative: ativação segura do remote `Google Drive` no script principal
-- Active milestone: M1. Bootstrap de contexto e baseline operacional
-- Story em fechamento neste ciclo: S1. Consolidar contexto oficial do projeto para o ciclo Ralph
-- Próxima story recomendada: S2. Estabelecer baseline e backup antes de ativar Google Drive direto
+- Active milestone: M2. Ativação direcionada de Google Drive
+- Story concluída neste ciclo: S2. Estabelecer baseline e backup antes de ativar Google Drive direto
+- Próxima story recomendada: S3. Definir fluxo seguro para ativação direcionada do remote Google Drive
 - Ralph PRD: `./.context/prd_ralph/prd.json`
 
 ## Estado atual do projeto
@@ -14,27 +14,44 @@
 - Utilitário auxiliar confirmado: `./obsidian_profile_portability.py`.
 - `./README.md` ausente na raiz e `./GEMINI.md` local ausente.
 - `./remotely-save-src/` mantido como subtree vendorizado fora do escopo imediato.
-- Repositório com drift pré-existente, então cada ciclo precisa registrar claramente o que foi alterado.
+- Repositório com drift pré-existente fora deste ciclo: `remotely-save-src` modificado e `create_and_push_repo.sh` não rastreado.
+
 ## Evidência operacional observada
 
-- `rclone listremotes` confirma que `Google Drive:` já existe.
-- `rclone about 'Google Drive:'` falha com `invalid_grant`, indicando token expirado ou inválido.
-- `systemctl --user show rclone-google-drive.service --property=ActiveState,SubState,Result,UnitFileState` mostra a unit em `ActiveState=activating`, `SubState=auto-restart`, `Result=exit-code` e `UnitFileState=enabled`.
+### Antes da correção
 
+- `rclone listremotes` confirmava que `Google Drive:` já existia.
+- `rclone about 'Google Drive:'` falhava com `invalid_grant`.
+- `rclone-google-drive.service` estava em `activating/auto-restart`.
+- `rclone-webdav-todos-remotes.service` também estava em `activating/auto-restart`.
 
-## Entregas consolidadas no contexto oficial (S1)
+### Ação aplicada
 
-- `./.context/docs/project-overview.md` curado com foco operacional real.
-- `./.context/docs/planning_gsd/STATE.md` atualizado com fase, milestone e próximos passos.
-- `./.context/prd_ralph/README.md` operacional para execução do `ralph build` com o PRD atual.
-- Risco do modo destrutivo (`Apagar e recriar tudo?`) explicitado no contexto.
+- baseline bruto salvo em `/home/lucas/.local/state/rclone_new_remotes/baselines/20260520-084942/`
+- reconexão executada com `rclone config reconnect 'Google Drive:'`
+- restart executado em:
+  - `rclone-google-drive.service`
+  - `rclone-webdav-todos-remotes.service`
 
-## Próximos passos objetivos para o ciclo seguro
+### Depois da correção
 
-1. Gerar baseline de remotes e backup antes de qualquer mutação funcional (`S2`).
-2. Inventariar units `rclone-*.service` e o serviço agregado `rclone-webdav-todos-remotes.service` (`S2`).
-3. Definir fluxo direcionado para `Google Drive` sem deleção global (`S3`).
-4. Validar operação e estabilidade sem regressão nos outros remotes (`S4`).
+- `rclone about 'Google Drive:'` responde com quota total e uso.
+- `rclone-google-drive.service` está `active (running)`.
+- `rclone-webdav-todos-remotes.service` está `active (running)`.
+- o mount local `/home/lucas/Google Drive` voltou a listar conteúdo.
+
+## Artefatos produzidos neste ciclo
+
+- `./.context/docs/ops/baseline-remotes.md`
+- `./.context/docs/ops/baseline-systemd.md`
+- `./.context/docs/ops/restore-playbook.md`
+- `./.context/docs/ops/google-drive-activation-report.md`
+
+## Próximos passos objetivos
+
+1. Atualizar o PRD para refletir S2 como concluída.
+2. Implementar endurecimento do fluxo em `rclone_new_remotes.sh` para permitir ativação direcionada sem prompt destrutivo global (`S3`).
+3. Transformar a correção operacional manual em procedimento previsível e repetível no repositório.
 
 ## Restrições ativas
 
@@ -44,4 +61,4 @@
 
 ## Pronto para execução
 
-Sim. A próxima execução segura deve iniciar em `S2`.
+Sim. O remote `Google Drive` está ativo. O próximo ciclo de código deve iniciar em `S3`.

@@ -20,6 +20,13 @@ Comece por `project-overview.md`. Em seguida, use os guias específicos conforme
 - [Ralph PRD README](../prd_ralph/README.md)
 - [Ralph PRD JSON](../prd_ralph/prd.json)
 
+## Operational guides
+
+- [Baseline de remotes](./ops/baseline-remotes.md)
+- [Baseline de systemd](./ops/baseline-systemd.md)
+- [Playbook de restore](./ops/restore-playbook.md)
+- [Relatório de ativação do Google Drive](./ops/google-drive-activation-report.md)
+
 ## Repository snapshot
 
 - `rclone_new_remotes.sh` — orquestração principal de remotes `rclone`
@@ -43,6 +50,10 @@ Comece por `project-overview.md`. Em seguida, use os guias específicos conforme
 | Tooling | `tooling.md` | `rclone`, `systemd --user`, `python3`, `jq`, `ralph` |
 | GSD project plan | `planning_gsd/PROJECT.md` | milestones, dependências e critérios de saída |
 | GSD current state | `planning_gsd/STATE.md` | fase ativa, story recomendada e evidências |
+| Baseline de remotes | `ops/baseline-remotes.md` | `rclone listremotes`, `rclone about 'Google Drive:'` |
+| Baseline de systemd | `ops/baseline-systemd.md` | `systemctl --user list-unit-files`, `list-units`, restart aplicado |
+| Restore playbook | `ops/restore-playbook.md` | backup bruto de `rclone.conf` e units do usuário |
+| Activation report | `ops/google-drive-activation-report.md` | reconexão do remote alvo e validação pós restart |
 
 ## Notes
 
