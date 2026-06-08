@@ -3,7 +3,10 @@
 # ==============================================================================
 # Script de Orquestração Multi-Conta Completo do Rclone
 # Autor: Gemini + Assistant
-# Versão: 8.26
+# Versão: 8.27
+#
+# Changelog V8.27:
+# - Adiciona CLI explícita: --setup para fluxo completo, --manage para só gerenciar on/off, --help para ajuda.
 #
 # Changelog V8.26:
 # - Adiciona modo RCLONE_REMOTE_MENU_ONLY=true para abrir só o menu on/off e aplicar systemd sem setup completo.
@@ -695,10 +698,68 @@ activate_selected_remote_services_only() {
     done
 }
 
+print_help() {
+    cat <<EOF
+Uso:
+  ./rclone_new_remotes.sh --manage
+  ./rclone_new_remotes.sh --setup
+  ./rclone_new_remotes.sh --help
+
+Modos:
+  --manage   Abre só o menu interativo on/off e aplica nos serviços systemd existentes.
+             Não cria remotes, não valida tokens, não recria WebDAV agregado e não roda setup completo.
+
+  --setup    Abre o menu interativo on/off e roda o setup completo apenas para os remotes ligados.
+             Cria/atualiza remotes, valida autenticação, configura WebDAV agregado e reinicia serviços.
+
+  --help     Mostra esta ajuda.
+
+Atalhos do menu:
+  ↑/↓        Navega pelos remotes.
+  espaço     Alterna on/off.
+  Enter      Aplica a seleção.
+  a          Liga todos.
+  n          Desliga todos.
+  q          Cancela.
+
+Modo destrutivo:
+  RCLONE_NUKE_ALL=true ./rclone_new_remotes.sh --setup
+
+  Use só depois de baseline e rollback. Por padrão, remotes desligados não são apagados.
+EOF
+}
+
+RUN_MODE=""
+case "${1:-}" in
+    --manage)
+        RUN_MODE="manage"
+        ;;
+    --setup)
+        RUN_MODE="setup"
+        ;;
+    --help|-h|"")
+        print_help
+        exit 0
+        ;;
+    *)
+        echo -e "${RED}Argumento inválido: $1${NC}" >&2
+        echo >&2
+        print_help >&2
+        exit 2
+        ;;
+esac
+
+if [ "$#" -gt 1 ]; then
+    echo -e "${RED}Use apenas um modo por execução.${NC}" >&2
+    echo >&2
+    print_help >&2
+    exit 2
+fi
+
 
 # --- Início da Execução do Script ---
 echo -e "${PURPLE}================================================="
-echo -e "    Iniciando Orquestração Multi-Conta do Rclone (v8.26)   "
+echo -e "    Iniciando Orquestração Multi-Conta do Rclone (v8.27)   "
 echo -e "=================================================${NC}"
 echo
 
@@ -780,7 +841,7 @@ ALL_REMOTES_CONFIG=("${ACCOUNT1_REMOTES[@]}" "${ACCOUNT2_REMOTES[@]}" "${ACCOUNT
 
 select_active_remotes_interactively
 disable_inactive_remote_services
-if [ "${RCLONE_REMOTE_MENU_ONLY:-false}" == "true" ]; then
+if [ "$RUN_MODE" == "manage" ]; then
     activate_selected_remote_services_only
     echo
     echo -e "${GREEN}Menu on/off aplicado sem executar setup completo.${NC}"

@@ -6,10 +6,10 @@
 
 ## Uso interativo
 
-Execute o script em um terminal real:
+Para rodar o setup completo em um terminal real:
 
 ```bash
-./rclone_new_remotes.sh
+./rclone_new_remotes.sh --setup
 ```
 
 O script abre um menu TTY para ligar/desligar remotes:
@@ -28,7 +28,7 @@ Para ativar apenas o Google Drive, deixe marcado somente `Google Drive` e pressi
 Para abrir o PTY e aplicar apenas liga/desliga nos serviços systemd existentes, sem criar remotes, validar tokens, recriar WebDAV agregado ou rodar o setup completo:
 
 ```bash
-RCLONE_REMOTE_MENU_ONLY=true ./rclone_new_remotes.sh
+./rclone_new_remotes.sh --manage
 ```
 
 Esse modo respeita a mesma seleção do menu. Remotes marcados como on são reiniciados/habilitados se a unit já existir. Remotes marcados como off são parados/desabilitados.
@@ -44,10 +44,17 @@ Esse modo respeita a mesma seleção do menu. Remotes marcados como on são rein
 O prompt antigo de apagar todos os remotes foi removido do fluxo padrão. A recriação destrutiva só roda com opt-in explícito:
 
 ```bash
-RCLONE_NUKE_ALL=true ./rclone_new_remotes.sh
+RCLONE_NUKE_ALL=true ./rclone_new_remotes.sh --setup
 ```
 
 Use esse modo apenas depois de baseline e plano de rollback.
+
+## Ajuda
+
+```bash
+./rclone_new_remotes.sh --help
+```
+
 
 ## Fallback sem TTY
 
