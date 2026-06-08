@@ -23,6 +23,16 @@ O script abre um menu TTY para ligar/desligar remotes:
 
 Para ativar apenas o Google Drive, deixe marcado somente `Google Drive` e pressione `Enter`.
 
+## Abrir só o menu on/off
+
+Para abrir o PTY e aplicar apenas liga/desliga nos serviços systemd existentes, sem criar remotes, validar tokens, recriar WebDAV agregado ou rodar o setup completo:
+
+```bash
+RCLONE_REMOTE_MENU_ONLY=true ./rclone_new_remotes.sh
+```
+
+Esse modo respeita a mesma seleção do menu. Remotes marcados como on são reiniciados/habilitados se a unit já existir. Remotes marcados como off são parados/desabilitados.
+
 ## Semântica de on/off
 
 - On: o script cria/atualiza a configuração do remote, valida autenticação quando aplicável, cria/atualiza a unit systemd, reinicia e habilita o serviço.

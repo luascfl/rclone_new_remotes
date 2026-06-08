@@ -3,7 +3,10 @@
 # ==============================================================================
 # Script de Orquestração Multi-Conta Completo do Rclone
 # Autor: Gemini + Assistant
-# Versão: 8.25
+# Versão: 8.26
+#
+# Changelog V8.26:
+# - Adiciona modo RCLONE_REMOTE_MENU_ONLY=true para abrir só o menu on/off e aplicar systemd sem setup completo.
 #
 # Changelog V8.25:
 # - Adiciona seletor interativo por TTY para ligar/desligar remotes com setas e espaço.
@@ -658,10 +661,44 @@ disable_inactive_remote_services() {
     done
 }
 
+activate_selected_remote_services_only() {
+    local remote_config
+    local name
+    local type
+    local service_basename
+    local service_file_path
+    local mount_path
+
+    echo -e "${PURPLE}Aplicando seleção nos serviços systemd existentes...${NC}"
+    systemctl --user daemon-reload
+
+    for remote_config in "${ACTIVE_REMOTES_CONFIG[@]}"; do
+        IFS='|' read -r name type <<< "$remote_config"
+        service_basename="$(service_basename_for_remote "$name")"
+        service_file_path="${SYSTEMD_USER_DIR}/${service_basename}"
+        mount_path="${MOUNT_BASE_DIR}/${name}"
+
+        if [ ! -f "$service_file_path" ]; then
+            echo -e "${YELLOW}--> Serviço ausente para '${name}': ${service_basename}. Mantendo sem setup.${NC}"
+            continue
+        fi
+
+        echo -e "${GREEN}--> Ligando '${name}' (${service_basename})...${NC}"
+        fusermount -u "${mount_path}" 2>/dev/null || true
+        systemctl --user stop "$service_basename" 2>/dev/null || true
+        systemctl --user start "$service_basename"
+        if [ $? -eq 0 ]; then
+            systemctl --user enable "$service_basename" 2>/dev/null || true
+        else
+            echo -e "${RED}--> Falha ao iniciar '${service_basename}'.${NC}"
+        fi
+    done
+}
+
 
 # --- Início da Execução do Script ---
 echo -e "${PURPLE}================================================="
-echo -e "    Iniciando Orquestração Multi-Conta do Rclone (v8.25)   "
+echo -e "    Iniciando Orquestração Multi-Conta do Rclone (v8.26)   "
 echo -e "=================================================${NC}"
 echo
 
@@ -743,6 +780,13 @@ ALL_REMOTES_CONFIG=("${ACCOUNT1_REMOTES[@]}" "${ACCOUNT2_REMOTES[@]}" "${ACCOUNT
 
 select_active_remotes_interactively
 disable_inactive_remote_services
+if [ "${RCLONE_REMOTE_MENU_ONLY:-false}" == "true" ]; then
+    activate_selected_remote_services_only
+    echo
+    echo -e "${GREEN}Menu on/off aplicado sem executar setup completo.${NC}"
+    exit 0
+fi
+
 
 if [ "${RCLONE_NUKE_ALL:-false}" == "true" ]; then
     echo -e "${PURPLE}RCLONE_NUKE_ALL=true detectado. Deletando todas as configurações de remote...${NC}"
