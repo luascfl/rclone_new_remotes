@@ -26,6 +26,7 @@ Comece por `project-overview.md`. Em seguida, use os guias específicos conforme
 - [Baseline de systemd](./ops/baseline-systemd.md)
 - [Playbook de restore](./ops/restore-playbook.md)
 - [Relatório de ativação do Google Drive](./ops/google-drive-activation-report.md)
+- [Fluxo seguro de ativação seletiva do Google Drive](./ops/google-drive-safe-activation.md)
 
 ## Repository snapshot
 

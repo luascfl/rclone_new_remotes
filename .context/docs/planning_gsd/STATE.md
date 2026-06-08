@@ -1,11 +1,11 @@
 # GSD state
 
-- Updated: 2026-05-20
+- Updated: 2026-06-08
 - Phase: validation
-- Initiative: ativação segura do remote `Google Drive` no script principal
+- Initiative: ativação segura e seletiva de remotes `rclone` no script principal
 - Active milestone: M2. Ativação direcionada de Google Drive
-- Story concluída neste ciclo: S2. Estabelecer baseline e backup antes de ativar Google Drive direto
-- Próxima story recomendada: S3. Definir fluxo seguro para ativação direcionada do remote Google Drive
+- Story concluída neste ciclo: S3. Definir fluxo seguro para ativação direcionada do remote Google Drive
+- Próxima story recomendada: S4. Validar Google Drive direto sem regressão nos demais remotes e systemd
 - Ralph PRD: `./.context/prd_ralph/prd.json`
 
 ## Estado atual do projeto
@@ -49,9 +49,9 @@
 
 ## Próximos passos objetivos
 
-1. Atualizar o PRD para refletir S2 como concluída.
-2. Implementar endurecimento do fluxo em `rclone_new_remotes.sh` para permitir ativação direcionada sem prompt destrutivo global (`S3`).
-3. Transformar a correção operacional manual em procedimento previsível e repetível no repositório.
+1. Executar validação operacional da seleção interativa em sessão real de terminal.
+2. Validar Google Drive direto e WebDAV agregado com apenas os remotes ligados no seletor.
+3. Confirmar que remotes desligados permanecem com configuração `rclone` preservada e serviço systemd desabilitado.
 
 ## Restrições ativas
 
@@ -59,6 +59,16 @@
 - Não tratar `remotely-save-src/` como foco principal deste ciclo.
 - Não registrar segredos em texto claro na documentação oficial.
 
+## Evidência deste ciclo
+
+- O script `rclone_new_remotes.sh` agora abre um seletor interativo em TTY para ligar/desligar remotes com setas e espaço.
+- Remotes desligados param/desabilitam o serviço systemd e desmontam o ponto local sem apagar a configuração do `rclone`.
+- Sem TTY interativo, o script mantém fallback conservador com todos os remotes ligados.
+- Validações deste ciclo:
+  - `bash -n rclone_new_remotes.sh`
+  - harness não interativo das funções do seletor
+  - harness PTY simulando espaço e Enter no menu
+
 ## Pronto para execução
 
-Sim. O remote `Google Drive` está ativo. O próximo ciclo de código deve iniciar em `S3`.
+Sim. O próximo ciclo deve iniciar em `S4`, com validação operacional real dos remotes ligados/desligados.
