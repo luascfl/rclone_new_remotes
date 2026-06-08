@@ -20,6 +20,7 @@ O script abre um menu TTY para ligar/desligar remotes:
 - `a` liga todos
 - `n` desliga todos
 - `q` cancela sem aplicar
+- a legenda abaixo da lista descreve o remote selecionado
 
 Para ativar apenas o Google Drive, deixe marcado somente `Google Drive` e pressione `Enter`.
 

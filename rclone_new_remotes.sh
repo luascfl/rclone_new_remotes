@@ -3,7 +3,10 @@
 # ==============================================================================
 # Script de Orquestração Multi-Conta Completo do Rclone
 # Autor: Gemini + Assistant
-# Versão: 8.27
+# Versão: 8.28
+#
+# Changelog V8.28:
+# - Mostra legenda contextual do remote selecionado no menu interativo.
 #
 # Changelog V8.27:
 # - Adiciona CLI explícita: --setup para fluxo completo, --manage para só gerenciar on/off, --help para ajuda.
@@ -522,6 +525,69 @@ remote_service_should_start_enabled() {
     return 1
 }
 
+remote_legend() {
+    local remote_name="$1"
+    local remote_type="$2"
+    local provider="$3"
+
+    case "$remote_name" in
+        "Google Drive")
+            echo "Drive principal da conta lucascamr107@gmail.com. Use on para mount local direto em /home/lucas/Google Drive."
+            ;;
+        "Psicologia UNEB 2026.1")
+            echo "Drive compartilhado Google da conta lucascamr107@gmail.com para materiais de Psicologia UNEB 2026.1."
+            ;;
+        "Arquivos e cursos")
+            echo "Drive compartilhado Google da conta lucascamr107@gmail.com para arquivos e cursos."
+            ;;
+        "Documentos compartilhados OrganizeJr")
+            echo "Drive compartilhado Google da conta lucascamr107@gmail.com com documentos compartilhados da OrganizeJr."
+            ;;
+        "presidencia to lucascamilo")
+            echo "Drive compartilhado Google ligado à presidência e acesso lucascamilo."
+            ;;
+        "PRESIDENCIA")
+            echo "Drive compartilhado Google da área de presidência."
+            ;;
+        "Filmes - Lucas aluno.colegiomaanaim.net")
+            echo "Drive compartilhado Google associado à conta escolar aluno.colegiomaanaim.net."
+            ;;
+        "MEJ - Lucas organizejr.com")
+            echo "Drive compartilhado Google associado ao domínio organizejr.com para MEJ."
+            ;;
+        "FINANCEIRO")
+            echo "Drive compartilhado Google da conta lucascamilo@organizejr.com para financeiro."
+            ;;
+        "COMERCIAL")
+            echo "Drive compartilhado Google da conta lucascamilo@organizejr.com para comercial."
+            ;;
+        "LM Mobilidade OneDrive")
+            echo "OneDrive Business da conta lucas.carvalho@lmmobilidade.com.br."
+            ;;
+        "OneDrive")
+            echo "OneDrive pessoal da conta lucascamr107@gmail.com."
+            ;;
+        "Mega")
+            echo "Remote Mega configurado com senha obscure local. Use off para parar o mount sem apagar credenciais."
+            ;;
+        "Koofr")
+            echo "Remote Koofr nativo da conta lucascamr107@gmail.com."
+            ;;
+        "Pcloud")
+            echo "Remote Pcloud da conta lucascamr107@gmail.com, com autenticação OAuth."
+            ;;
+        "Koofr WebDAV GDrive")
+            echo "Remote WebDAV para Koofr/GDrive. Útil como backend alternativo e navegação via WebDAV."
+            ;;
+        "Google Photos")
+            echo "Remote Google Photos da conta lucascmcr@gmail.com. Geralmente é melhor para leitura/listagem do acervo."
+            ;;
+        *)
+            echo "Provider: ${provider}. Tipo: ${remote_type}. Sem legenda específica cadastrada."
+            ;;
+    esac
+}
+
 draw_remote_toggle_menu() {
     local cursor="$1"
     local count="${#ALL_REMOTES_CONFIG[@]}"
@@ -558,6 +624,12 @@ draw_remote_toggle_menu() {
 
         printf '%s %s %s\n' "$pointer" "$marker" "$name" >/dev/tty
     done
+
+    remote_config="${ALL_REMOTES_CONFIG[$cursor]}"
+    IFS='|' read -r name type <<< "$remote_config"
+    echo >/dev/tty
+    echo -e "${CYAN}Legenda:${NC}" >/dev/tty
+    echo "  $(remote_legend "$name" "$type" "")" >/dev/tty
 }
 
 select_active_remotes_interactively() {
@@ -721,6 +793,9 @@ Atalhos do menu:
   a          Liga todos.
   n          Desliga todos.
   q          Cancela.
+
+Legenda:
+  O menu mostra uma legenda contextual abaixo da lista para o remote selecionado.
 
 Modo destrutivo:
   RCLONE_NUKE_ALL=true ./rclone_new_remotes.sh --setup
