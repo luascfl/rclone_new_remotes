@@ -3,7 +3,10 @@
 # ==============================================================================
 # Script de Orquestração Multi-Conta Completo do Rclone
 # Autor: Gemini + Assistant
-# Versão: 8.28
+# Versão: 8.29
+#
+# Changelog V8.29:
+# - No --manage, valida acesso do remote antes de iniciar a unit para evitar loop systemd com token expirado.
 #
 # Changelog V8.28:
 # - Mostra legenda contextual do remote selecionado no menu interativo.
@@ -750,6 +753,31 @@ disable_inactive_remote_services() {
     done
 }
 
+remote_access_ok() {
+    local remote_name="$1"
+    local remote_type="$2"
+
+    if [ "$remote_type" == "google photos" ]; then
+        rclone lsd "${remote_name}:" --max-depth 1 > /dev/null 2>&1
+    else
+        rclone about "${remote_name}:" > /dev/null 2>&1
+    fi
+}
+
+print_remote_reconnect_hint() {
+    local remote_name="$1"
+
+    case "$remote_name" in
+        "Google Drive"|"Psicologia UNEB 2026.1"|"Arquivos e cursos"|"Documentos compartilhados OrganizeJr"|"presidencia to lucascamilo"|"PRESIDENCIA"|"Filmes - Lucas aluno.colegiomaanaim.net"|"MEJ - Lucas organizejr.com"|"FINANCEIRO"|"COMERCIAL"|"LM Mobilidade OneDrive"|"OneDrive"|"Pcloud"|"Google Photos")
+            echo -e "${YELLOW}    Rode para renovar autenticação:${NC} rclone config reconnect \"${remote_name}:\""
+            ;;
+        *)
+            echo -e "${YELLOW}    Verifique o login/configuração do remote antes de ligar a unit.${NC}"
+            ;;
+    esac
+}
+
+
 activate_selected_remote_services_only() {
     local remote_config
     local name
@@ -773,6 +801,15 @@ activate_selected_remote_services_only() {
         fi
 
         echo -e "${GREEN}--> Ligando '${name}' (${service_basename})...${NC}"
+        if ! remote_access_ok "$name" "$type"; then
+            echo -e "${RED}--> Remote '${name}' não respondeu à checagem de acesso. Serviço não será iniciado.${NC}"
+            print_remote_reconnect_hint "$name"
+            fusermount -u "${mount_path}" 2>/dev/null || true
+            systemctl --user stop "$service_basename" 2>/dev/null || true
+            systemctl --user disable "$service_basename" 2>/dev/null || true
+            continue
+        fi
+
         fusermount -u "${mount_path}" 2>/dev/null || true
         systemctl --user stop "$service_basename" 2>/dev/null || true
         systemctl --user start "$service_basename"
@@ -780,6 +817,7 @@ activate_selected_remote_services_only() {
             systemctl --user enable "$service_basename" 2>/dev/null || true
         else
             echo -e "${RED}--> Falha ao iniciar '${service_basename}'.${NC}"
+            systemctl --user stop "$service_basename" 2>/dev/null || true
         fi
     done
 }
@@ -848,7 +886,7 @@ fi
 
 # --- Início da Execução do Script ---
 echo -e "${PURPLE}================================================="
-echo -e "    Iniciando Orquestração Multi-Conta do Rclone (v8.27)   "
+echo -e "    Iniciando Orquestração Multi-Conta do Rclone (v8.29)   "
 echo -e "=================================================${NC}"
 echo
 

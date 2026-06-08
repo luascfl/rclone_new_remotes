@@ -26,13 +26,13 @@ Para ativar apenas o Google Drive, deixe marcado somente `Google Drive` e pressi
 
 ## Abrir só o menu on/off
 
-Para abrir o PTY e aplicar apenas liga/desliga nos serviços systemd existentes, sem criar remotes, validar tokens, recriar WebDAV agregado ou rodar o setup completo:
+Para abrir o PTY e aplicar apenas liga/desliga nos serviços systemd existentes, sem criar remotes, sem renovar tokens, sem recriar WebDAV agregado ou rodar o setup completo:
 
 ```bash
 ./rclone_new_remotes.sh --manage
 ```
 
-Esse modo respeita a mesma seleção do menu. Remotes marcados como on são reiniciados/habilitados se a unit já existir. Remotes marcados como off são parados/desabilitados.
+Esse modo respeita a mesma seleção do menu. Remotes marcados como on passam por uma checagem rápida de acesso antes de reiniciar/habilitar a unit existente. Se a autenticação estiver expirada, o serviço não é iniciado e o script mostra o comando `rclone config reconnect`. Remotes marcados como off são parados/desabilitados.
 
 ## Semântica de on/off
 
