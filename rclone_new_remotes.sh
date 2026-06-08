@@ -532,7 +532,13 @@ remote_legend() {
 
     case "$remote_name" in
         "Google Drive")
-            echo "Drive principal da conta lucascamr107@gmail.com. Use on para mount local direto em /home/lucas/Google Drive."
+            cat <<EOF
+Direto pela API nativa do Google Drive.
++ Melhor desempenho e menos camadas para mount em /home/lucas/Google Drive.
++ Melhor compatibilidade com arquivos Google Docs/Sheets via export do próprio rclone.
+- Depende do token OAuth do Google, quando expira precisa reconnect.
+- Usa quota/rate limit da API Google diretamente.
+EOF
             ;;
         "Psicologia UNEB 2026.1")
             echo "Drive compartilhado Google da conta lucascamr107@gmail.com para materiais de Psicologia UNEB 2026.1."
@@ -577,7 +583,13 @@ remote_legend() {
             echo "Remote Pcloud da conta lucascamr107@gmail.com, com autenticação OAuth."
             ;;
         "Koofr WebDAV GDrive")
-            echo "Remote WebDAV para Koofr/GDrive. Útil como backend alternativo e navegação via WebDAV."
+            cat <<EOF
+Acesso ao Google Drive via Koofr exposto como WebDAV.
++ Backend alternativo quando o OAuth direto do Google falha.
++ Bom para navegação simples via WebDAV/GVFS e compatibilidade com clientes genéricos.
+- Tem camada extra Koofr/WebDAV, tende a ser mais lento e menos fiel que a API nativa.
+- Pode ter limitações em arquivos Google Docs/Sheets e leituras aleatórias pesadas.
+EOF
             ;;
         "Google Photos")
             echo "Remote Google Photos da conta lucascmcr@gmail.com. Geralmente é melhor para leitura/listagem do acervo."
@@ -629,7 +641,9 @@ draw_remote_toggle_menu() {
     IFS='|' read -r name type <<< "$remote_config"
     echo >/dev/tty
     echo -e "${CYAN}Legenda:${NC}" >/dev/tty
-    echo "  $(remote_legend "$name" "$type" "")" >/dev/tty
+    remote_legend "$name" "$type" "" | while IFS= read -r legend_line; do
+        echo "  ${legend_line}" >/dev/tty
+    done
 }
 
 select_active_remotes_interactively() {
